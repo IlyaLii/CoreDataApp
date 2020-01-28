@@ -30,3 +30,18 @@ func save(name : String) {
         print("Could not save. \(error), \(error.userInfo)")
     }
 }
+
+func fetchWith(entityName: String)  {
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        else { return }
+    
+    let managedContext = appDelegate.persistentContainer.viewContext
+    
+    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
+    
+    do {
+        people = try managedContext.fetch(fetchRequest)
+    } catch let error as NSError {
+        print("Could not fetch. \(error), \(error.userInfo)")
+    }
+}

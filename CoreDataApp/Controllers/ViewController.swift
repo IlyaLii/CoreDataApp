@@ -11,6 +11,14 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchWith(entityName: "Person")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "The list"
@@ -19,9 +27,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func addName(_ sender: Any) {
-        var alert = UIAlertController(title: "New name", message: "Add a new name", preferredStyle: .alert)
+        let alert = UIAlertController(title: "New name", message: "Add a new name", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
-            let textField = alert.textFields?.first
+            guard let text = alert.textFields?.first?.text else { return }
+            save(name: text)
             self.tableView.reloadData()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
