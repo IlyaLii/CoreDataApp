@@ -19,6 +19,18 @@ class ViewController: UIViewController {
     }
 
     @IBAction func addName(_ sender: Any) {
+        var alert = UIAlertController(title: "New name", message: "Add a new name", preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
+            let textField = alert.textFields?[0]
+            names.append(textField!.text!)
+            self.tableView.reloadData()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        alert.addTextField(configurationHandler: nil)
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
     }
     
 }
