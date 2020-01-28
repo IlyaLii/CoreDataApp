@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController: UITableViewDataSource {
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
     }
@@ -55,6 +55,12 @@ extension ViewController: UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let person = people[indexPath.row]
+        deleteWith(person: person)
+        people.remove(at: indexPath.row)
+        tableView.reloadData()
+    }
+
 }
 

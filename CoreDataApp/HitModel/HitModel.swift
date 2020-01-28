@@ -45,3 +45,18 @@ func fetchWith(entityName: String)  {
         print("Could not fetch. \(error), \(error.userInfo)")
     }
 }
+
+func deleteWith(person: NSManagedObject) {
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        else { return }
+    
+    let managedContext = appDelegate.persistentContainer.viewContext
+    
+    managedContext.delete(person)
+    
+    do {
+        try managedContext.save()
+    } catch let error as NSError {
+        print("Could not delete. \(error), \(error.userInfo)")
+    }
+}
